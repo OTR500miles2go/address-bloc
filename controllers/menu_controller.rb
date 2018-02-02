@@ -13,7 +13,8 @@ class MenuController
     puts "\t\t2 - Create an entry\n\n"
     puts "\t\t3 - Search for an entry\n\n"
     puts "\t\t4 - Import entries from a CSV\n\n"
-    puts "\t\t5 - Exit\n\n\n"
+    puts "\t\t5 - Wamphyr!!\n\n"
+    puts "\t\t6 - Exit\n\n\n"
     print "\tEnter your selection: "
 
     selection = gets.to_i
@@ -36,6 +37,10 @@ class MenuController
         read_csv
         main_menu
       when 5
+        system "clear"
+        the_last_aerie
+        main_menu
+      when 6
         puts "Good-bye!"
         exit(0)
       else
@@ -79,6 +84,12 @@ class MenuController
 
     system "clear"
     puts "End of entries"
+  end
+
+  def the_last_aerie
+    system "clear"
+    time = Time.now.getutc
+    puts "\n\n\t\t #{time} \n"
   end
 
   def create_entry
