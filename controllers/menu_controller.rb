@@ -87,9 +87,29 @@ class MenuController
   end
 
   def the_last_aerie
-    system "clear"
-    time = Time.now.getutc
-    puts "\n\n\t\t #{time} \n"
+    count = address_book.entries.count
+    if count == 0
+      system "clear"
+      puts "\n\n\tThere are no entries in the phone book. Try creating or importing"
+      main_menu
+      return
+    end
+    puts "\n\n\tAre you sure you want to delete all #{count} entries? (y/n)"
+    ans = gets.chomp
+    if ans == 'y'
+      address_book.no_more_entries
+      system "clear"
+      puts "\n\n\tAll #{count} entries removed"
+      main_menu
+    elsif ans == 'n'
+      system "clear"
+      puts "\n\n\tNo entries removed"
+      main_menu
+    else
+      system "clear"
+      puts "\n\n\tYou must enter 'y' or 'n'"
+      the_last_aerie
+    end
   end
 
   def create_entry
