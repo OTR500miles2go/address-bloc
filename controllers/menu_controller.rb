@@ -61,10 +61,29 @@ class MenuController
     puts "New AddressBloc Entry"
     print "Name: "
     name = gets.chomp
+    while !(name =~ /\A[a-zA-Z\s]*\z/) 
+      puts "\nName can only be letters, no special characters.\n"
+      print "Name: "
+      name = gets.chomp        
+    end
+
     print "Phone number: "
     phone = gets.chomp
+    while !(phone =~ /\A(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\z/)
+      puts "\nThe phone number needs to follow one of these formats..\n"
+      puts "111 222 3333, (111) 222-3333, 111.222.3333, 111 222 3333\n"
+      print "Please re-enter your phone number: "
+      phone = gets.chomp
+    end
+
     print "Email: "
     email = gets.chomp
+    while !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+      puts "The email address must follow this format...\n"
+      puts "abc@def.com, xyz@abc.org etc\n"
+      print "Please re-enter your email address: "
+      email = gets.chomp
+    end
 
     address_book.add_entry(name, phone, email)
 
@@ -143,13 +162,34 @@ class MenuController
   def edit_entry(entry)
     print "Updated name: "
     name = gets.chomp
+    while !(name =~ /\A[a-zA-Z\s]*\z/) 
+      puts "\nName can only be letters, no special characters.\n"
+      print "Updated name: "
+      name = gets.chomp        
+    end
+
     print "Updated phone number: "
     phone_number = gets.chomp
+    while !(phone_number =~ /\A(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\z/)
+      puts "\nThe phone number needs to follow one of these formats..\n"
+      puts "111 222 3333, (111) 222-3333, 111.222.3333, 111 222 3333\n"
+      print "Updated phone number: "
+      phone_number = gets.chomp
+    end
+
     print "Updated email: "
     email = gets.chomp
+    while !(email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+      puts "The email address must follow this format...\n"
+      puts "abc@def.com, xyz@abc.org etc\n"
+      print "Updated email: "
+      email = gets.chomp
+    end
+
     entry.name = name if !name.empty?
     entry.phone_number = phone_number if !phone_number.empty?
     entry.email = email if !email.empty?
+
     system "clear"
     puts "Updated entry:"
     puts entry
