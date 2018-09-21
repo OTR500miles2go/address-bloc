@@ -8,7 +8,9 @@ class MenuController
   end
 
   def main_menu
-    puts "\tMain Menu - #{@address_book.name} Address Book - #{Entry.count} entries\n\n"
+    puts "\tMain Menu -\n"
+    puts "\t#{@address_book.name} Address Book Selected\n#{@address_book.entries.count} entries\n\n"
+    puts "\t\t0 - Switch AddressBook\n\n"
     puts "\t\t1 - View all entries\n\n"
     puts "\t\t2 - Create an entry\n\n"
     puts "\t\t3 - Search for an entry\n\n"
@@ -19,6 +21,10 @@ class MenuController
     selection = gets.to_i
 
     case selection
+      when 0
+        system "clear"
+        select_address_book_menu
+        main_menu      
       when 1
         system "clear"
         view_all_entries
@@ -45,8 +51,23 @@ class MenuController
     end
   end
 
+  def select_address_book_menu
+    puts "Select an Address Book:"
+    AddressBook.all.each_with_index do |address_book, index|
+      puts "#{index} - #{address_book.name}"
+    end
+
+    index = gets.chomp.to_i
+
+    @address_book = AddressBook.find(index + 1)
+    system "clear"
+    return if @address_book
+    puts "Please select a valid index"
+    select_address_book_menu
+  end
+
   def view_all_entries
-    Entry.all.each do |entry|
+    @address_book.entries.each do |entry|
       system "clear"
       puts entry.to_s
       entry_submenu(entry)
@@ -75,7 +96,7 @@ class MenuController
   def search_entries
     print "Search by name: "
     name = gets.chomp
-    match = Entry.find_by(:name, name)
+    match = @address_book.find_entry(name)
     system "clear"
     if match
       puts match.to_s
