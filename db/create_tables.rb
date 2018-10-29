@@ -1,6 +1,7 @@
 require 'sqlite3'
+require 'pg'
 
-db = SQLite3::Database.new "db/address_bloc.sqlite"
+db = SQLite3::Database.new "db/address_bloc.db"
 
 db.execute("DROP TABLE IF EXISTS address_book;");
 db.execute("DROP TABLE IF EXISTS entry;");

@@ -2,7 +2,7 @@
  require_relative '../models/entry'
  require 'bloc_record'
  
- BlocRecord.connect_to('db/address_bloc.sqlite')
+ BlocRecord.connect_to("db/address_bloc.db", :sqlite3)
  
  book = AddressBook.create(name: 'My Address Book')
  
